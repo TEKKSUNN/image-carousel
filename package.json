@@ -4,7 +4,8 @@
   "description": "Makes multiple images flow and loop over and over again.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack"
   },
   "keywords": [
     "image-carousel"
