@@ -1,0 +1,19 @@
+div.picture-frame.image-carousel {
+    height: var(--img-size);
+    width: var(--img-size);
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 2.5px solid black;
+    box-shadow: var(--shadow-normal);
+    border-radius: 25px;
+}
+
+div.picture-frame.image-carousel > div.pictures > img.carousel-img {
+    height: var(--img-size);
+    width: var(--img-size);
+    object-fit: cover;
+}
+
+div.picture-frame.image-carousel > div.pictures {
+    position: relative;
+}
