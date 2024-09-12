@@ -2,7 +2,11 @@
   "name": "@tekksunn/image-carousel",
   "version": "1.0.0",
   "description": "Makes multiple images flow and loop over and over again.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist/index.js",
+    "dist/styles.css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack"
