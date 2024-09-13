@@ -38,6 +38,34 @@ const subLeft = (element) => {
     return newLeft;
 };
 
+const getNumPictures = (pictures) => Math.floor(pictures.childNodes.length / 2);
+
+const getCurrentImgNum = (pictureFrame) => parseInt(pictureFrame.lastChild.textContent);
+
+const getImgNum = (pictureFrame) => pictureFrame.lastChild;
+
+const changeImgNum = (pictureFrame, newNum) => { getImgNum(pictureFrame).textContent = `${newNum}` };
+
+function addImageNum(pictureFrame, pictures) {
+    const numPictures = getNumPictures(pictures);
+    const currentNum = getCurrentImgNum(pictureFrame);
+    const newNum = currentNum + 1;
+    if (newNum > numPictures) {
+        return 1;
+    }
+    return newNum;
+}
+
+function subImageNum(pictureFrame, pictures) {
+    const numPictures = getNumPictures(pictures);
+    const currentNum = getCurrentImgNum(pictureFrame);
+    const newNum = currentNum - 1;
+    if (newNum < 1) {
+        return numPictures;
+    }
+    return newNum;
+}
+
 function getPictures(pictureFrame) {
     return pictureFrame.childNodes[1];
 }
@@ -48,7 +76,9 @@ function next(pictureFrame) {
         return;
     }
     const newLeft = `${addLeft(pictures)}px`;
+    const newImgNum = addImageNum(pictureFrame, pictures);
     changeLeft(pictures, newLeft);
+    changeImgNum(pictureFrame, newImgNum);
 }
 
 function back(pictureFrame) {
@@ -57,7 +87,9 @@ function back(pictureFrame) {
         return;
     }
     const newLeft = `${subLeft(pictures)}px`;
+    const newImgNum = subImageNum(pictureFrame, pictures);
     changeLeft(pictures, newLeft);
+    changeImgNum(pictureFrame, newImgNum);
 }
 
 function createButton(className, callbackfn) {
@@ -67,11 +99,20 @@ function createButton(className, callbackfn) {
     return button;
 }
 
+function createText(className, type, content) {
+    const text = document.createElement(type);
+    text.className = `p-frame-asset p-frame-text ${className}`;
+    text.textContent = content;
+    return text;
+}
+
 function constructButtons(pictureFrame) {
     const nextButton = createButton('next-btn', () => next(pictureFrame));
     const backButton = createButton('back-btn', () => back(pictureFrame));
+    const imageNumber = createText('image-number', 'p', '1');
     pictureFrame.appendChild(nextButton);
     pictureFrame.appendChild(backButton);
+    pictureFrame.appendChild(imageNumber);
 }
 
 export function makeImageCarouselAll(frameQuery) {
