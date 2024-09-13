@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "files": [
     "src/index.js",
-    "src/styles.css"
+    "src/styles.css",
+    "src/next.png",
+    "src/back.png"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
