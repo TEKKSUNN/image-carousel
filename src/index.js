@@ -18,7 +18,6 @@ const addLeft = (element) => {
     const divWidth = getWidth(element);
     const pictureWidth = getWidth(element.childNodes[1]);
     const curLeftVal = getLeft(element);
-    console.log([element, divWidth, pictureWidth, curLeftVal].join("\n"));
     const newLeft = curLeftVal - pictureWidth;
     if (exceedsUpward(newLeft, divWidth)) {
         return 0;
