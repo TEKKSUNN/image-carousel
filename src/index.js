@@ -116,20 +116,20 @@ function constructButtons(pictureFrame) {
     pictureFrame.appendChild(imageNumber);
 }
 
-export function makeImageCarouselAll(frameQuery) {
+function makeImageCarouselAll(frameQuery) {
     const pictureFrameAll = getAll(frameQuery);
     pictureFrameAll.map((pictureFrame) => constructButtons(pictureFrame));
 }
 
-export function makeImageCarousel(frameQuery) {
+function makeImageCarousel(frameQuery) {
     const pictureFrame = get(frameQuery);
     constructButtons(pictureFrame);
 }
 
-export function loadDefaultImageCarousel() {
+function loadDefaultImageCarousel() {
     const defaultQuery = "div.picture-frame";
     const pictureFrameAll = getAll(defaultQuery);
     pictureFrameAll.map((pictureFrame) => constructButtons(pictureFrame));
 }
 
-// module.exports = { makeImageCarouselAll, makeImageCarousel, loadDefaultImageCarousel };
+module.exports = { makeImageCarouselAll, makeImageCarousel, loadDefaultImageCarousel };
