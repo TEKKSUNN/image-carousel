@@ -1,6 +1,6 @@
 {
   "name": "@tekksunn/image-carousel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Makes multiple images flow and loop over and over again.",
   "main": "src/index.js",
   "files": [
