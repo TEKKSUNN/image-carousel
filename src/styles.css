@@ -1,3 +1,11 @@
+:root {
+    --btn-size: 35px;
+    --img-size: 250px;
+    --shadow-normal: 5px 5px 10px #00000025;
+    --next-image-btn: url("./next.png");
+    --tim-center-img: calc((var(--img-size) / 2) - (var(--btn-size) / 2));
+}
+
 div.picture-frame.image-carousel {
     height: var(--img-size);
     width: var(--img-size);
@@ -5,7 +13,9 @@ div.picture-frame.image-carousel {
     overflow: hidden;
     border: 2.5px solid black;
     box-shadow: var(--shadow-normal);
-    border-radius: 25px;
+    border-radius: 10px;
+    display: flex;
+    position: relative;
 }
 
 div.picture-frame.image-carousel > div.pictures > img.carousel-img {
@@ -15,5 +25,34 @@ div.picture-frame.image-carousel > div.pictures > img.carousel-img {
 }
 
 div.picture-frame.image-carousel > div.pictures {
+    display: flex;
     position: relative;
+}
+
+.p-frame-asset {
+    position: absolute;
+}
+
+.p-frame-btn {
+    border: 0;
+    height: var(--btn-size);
+    width: var(--btn-size);
+    border-radius: var(--btn-size);
+    cursor: pointer;
+}
+
+.p-frame-btn:hover {
+    box-shadow: var(--shadow-normal);
+}
+
+.next-btn {
+    background-image: var(--next-image-btn);
+    background-size: var(--btn-size);
+    background-color: #00000025;
+    right: 0px;
+    top: var(--tim-center-img);
+}
+
+.next-btn:hover {
+    background-color: #ffffff75;
 }
