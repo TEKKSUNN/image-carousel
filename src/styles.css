@@ -5,6 +5,9 @@
     --next-image-btn: url("./next.png");
     --back-image-btn: url("./back.png");
     --tim-center-img: calc((var(--img-size) / 2) - (var(--btn-size) / 2));
+    --tim-p-frame-fs: calc(var(--img-size) / 20);
+    --tim-p-frame-fg: #eee;
+    --tim-true-center: calc(var(--img-size) / 2);
 }
 
 div.picture-frame.image-carousel {
@@ -58,4 +61,14 @@ div.picture-frame.image-carousel > div.pictures {
 .back-btn {
     background-image: var(--back-image-btn);
     left: 5px;
+}
+
+.p-frame-text {
+    color: var(--tim-p-frame-fg);
+    font-size: var(--tim-p-frame-fs);
+}
+
+.image-number {
+    left: var(--tim-true-center);
+    bottom: 5px;
 }
