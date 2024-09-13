@@ -110,6 +110,7 @@ function constructButtons(pictureFrame) {
     const nextButton = createButton('next-btn', () => next(pictureFrame));
     const backButton = createButton('back-btn', () => back(pictureFrame));
     const imageNumber = createText('image-number', 'p', '1');
+    window.setInterval(() => next(pictureFrame), 5000);
     pictureFrame.appendChild(nextButton);
     pictureFrame.appendChild(backButton);
     pictureFrame.appendChild(imageNumber);
