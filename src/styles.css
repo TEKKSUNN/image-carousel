@@ -1,31 +1,36 @@
 :root {
-    --btn-size: 35px;
-    --img-size: 250px;
-    --shadow-normal: 5px 5px 10px #00000025;
-    --next-image-btn: url("./next.png");
-    --back-image-btn: url("./back.png");
-    --tim-center-img: calc((var(--img-size) / 2) - (var(--btn-size) / 2));
-    --tim-p-frame-fs: calc(var(--img-size) / 20);
+    --tim-btn-size: 35px;
+    --tim-img-size: 300px;
+    --tim-shadow-normal: 5px 5px 10px #00000025;
+    --tim-next-image-btn: url("./next.png");
+    --tim-back-image-btn: url("./back.png");
+    --tim-center-img: calc((var(--tim-img-size) / 2) - (var(--tim-btn-size) / 2));
+    --tim-p-frame-fs: calc(var(--tim-img-size) / 20);
     --tim-p-frame-fg: #eee;
-    --tim-true-center: calc(var(--img-size) / 2);
+    --tim-true-center: calc(var(--tim-img-size) / 2);
     --tim-text-shadow: 2px 2px 5px #00000075;
+    --tim-p-frame-bdr: 10px;
+    --tim-p-frame-btn-bg: #ffffff25;
+    --tim-p-frame-btn-bg-hov: #ffffff75;
+    --tim-space: 5px;
+    --tim-p-frame-bd: 2.5px solid black;
 }
 
 div.picture-frame.image-carousel {
-    height: var(--img-size);
-    width: var(--img-size);
+    height: var(--tim-img-size);
+    width: var(--tim-img-size);
     box-sizing: border-box;
     overflow: hidden;
-    border: 2.5px solid black;
-    box-shadow: var(--shadow-normal);
-    border-radius: 10px;
+    border: var(--tim-p-frame-bd);
+    box-shadow: var(--tim-shadow-normal);
+    border-radius: var(--tim-p-frame-bdr);
     display: flex;
     position: relative;
 }
 
 div.picture-frame.image-carousel > div.pictures > img.carousel-img {
-    height: var(--img-size);
-    width: var(--img-size);
+    height: var(--tim-img-size);
+    width: var(--tim-img-size);
     object-fit: cover;
 }
 
@@ -40,28 +45,28 @@ div.picture-frame.image-carousel > div.pictures {
 
 .p-frame-btn {
     border: 0;
-    height: var(--btn-size);
-    width: var(--btn-size);
-    border-radius: var(--btn-size);
+    height: var(--tim-btn-size);
+    width: var(--tim-btn-size);
+    border-radius: var(--tim-btn-size);
     cursor: pointer;
-    background-size: var(--btn-size);
-    background-color: #ffffff25;
+    background-size: var(--tim-btn-size);
+    background-color: var(--tim-p-frame-btn-bg);
     top: var(--tim-center-img);
 }
 
 .p-frame-btn:hover {
-    background-color: #ffffff75;
-    box-shadow: var(--shadow-normal);
+    background-color: var(--tim-p-frame-btn-bg-hov);
+    box-shadow: var(--tim-shadow-normal);
 }
 
 .next-btn {
-    background-image: var(--next-image-btn);
-    right: 5px;
+    background-image: var(--tim-next-image-btn);
+    right: var(--tim-space);
 }
 
 .back-btn {
-    background-image: var(--back-image-btn);
-    left: 5px;
+    background-image: var(--tim-back-image-btn);
+    left: var(--tim-space);
 }
 
 .p-frame-text {
@@ -72,5 +77,5 @@ div.picture-frame.image-carousel > div.pictures {
 
 .image-number {
     left: var(--tim-true-center);
-    bottom: 5px;
+    bottom: var(--tim-space);
 }
