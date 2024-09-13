@@ -62,3 +62,6 @@ You can also use the functions:
 ## ...its stylesheet
 Include in your own website's stylesheet the following at the very top:
 ```@import url("@tekksunn/image-carousel/src/styles.css");```
+
+# Example Website
+Please go [here](https://tekksunn.github.io/image-carousel-example) for a visual reference.
