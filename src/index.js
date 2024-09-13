@@ -12,6 +12,8 @@ const changeLeft = (element, newNum) => { element.style.left = newNum };
 
 const exceedsUpward = (number, coreNumber) => number <= -coreNumber;
 
+const exceedsDownward = (number) => number > 0;
+
 const addLeft = (element) => {
     const divWidth = getWidth(element);
     const pictureWidth = getWidth(element.childNodes[1]);
@@ -20,6 +22,18 @@ const addLeft = (element) => {
     const newLeft = curLeftVal - pictureWidth;
     if (exceedsUpward(newLeft, divWidth)) {
         return 0;
+    }
+    return newLeft;
+};
+
+const subLeft = (element) => {
+    const divWidth = getWidth(element);
+    const pictureWidth = getWidth(element.childNodes[1]);
+    const curLeftVal = getLeft(element);
+    console.log([element, divWidth, pictureWidth, curLeftVal].join("\n"));
+    const newLeft = curLeftVal + pictureWidth;
+    if (exceedsDownward(newLeft)) {
+        return -divWidth + pictureWidth;
     }
     return newLeft;
 };
@@ -37,9 +51,14 @@ function next(pictureFrame) {
     changeLeft(pictures, newLeft);
 }
 
-// function back(pictureFrame) {
-
-// }
+function back(pictureFrame) {
+    const pictures = getPictures(pictureFrame);
+    if (pictures.length <= 2) {
+        return;
+    }
+    const newLeft = `${subLeft(pictures)}px`;
+    changeLeft(pictures, newLeft);
+}
 
 function createButton(className, callbackfn) {
     const button = document.createElement('button');
@@ -50,7 +69,9 @@ function createButton(className, callbackfn) {
 
 function constructButtons(pictureFrame) {
     const nextButton = createButton('next-btn', () => next(pictureFrame));
+    const backButton = createButton('back-btn', () => back(pictureFrame));
     pictureFrame.appendChild(nextButton);
+    pictureFrame.appendChild(backButton);
 }
 
 export function makeImageCarouselAll(frameQuery) {
