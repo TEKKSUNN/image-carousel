@@ -8,6 +8,7 @@
     --tim-p-frame-fs: calc(var(--img-size) / 20);
     --tim-p-frame-fg: #eee;
     --tim-true-center: calc(var(--img-size) / 2);
+    --tim-text-shadow: 2px 2px 5px #00000075;
 }
 
 div.picture-frame.image-carousel {
@@ -66,6 +67,7 @@ div.picture-frame.image-carousel > div.pictures {
 .p-frame-text {
     color: var(--tim-p-frame-fg);
     font-size: var(--tim-p-frame-fs);
+    text-shadow: var(--tim-text-shadow);
 }
 
 .image-number {
