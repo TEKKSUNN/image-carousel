@@ -3,6 +3,7 @@
     --img-size: 250px;
     --shadow-normal: 5px 5px 10px #00000025;
     --next-image-btn: url("./next.png");
+    --back-image-btn: url("./back.png");
     --tim-center-img: calc((var(--img-size) / 2) - (var(--btn-size) / 2));
 }
 
@@ -39,20 +40,22 @@ div.picture-frame.image-carousel > div.pictures {
     width: var(--btn-size);
     border-radius: var(--btn-size);
     cursor: pointer;
+    background-size: var(--btn-size);
+    background-color: #ffffff25;
+    top: var(--tim-center-img);
 }
 
 .p-frame-btn:hover {
+    background-color: #ffffff75;
     box-shadow: var(--shadow-normal);
 }
 
 .next-btn {
     background-image: var(--next-image-btn);
-    background-size: var(--btn-size);
-    background-color: #00000025;
-    right: 0px;
-    top: var(--tim-center-img);
+    right: 5px;
 }
 
-.next-btn:hover {
-    background-color: #ffffff75;
+.back-btn {
+    background-image: var(--back-image-btn);
+    left: 5px;
 }
