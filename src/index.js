@@ -8,7 +8,7 @@ const getWidth = (element) => element.offsetWidth;
 
 const getLeft = (element) => parseFloat(getProperty(element, "left").slice(0, -2));
 
-const changeLeft = (element, newNum) => { element.style.left = newNum };
+const changeLeft = (element, newNum) => { console.log(element); element.style.left = newNum };
 
 const exceedsUpward = (number, coreNumber) => number <= -coreNumber;
 
@@ -36,36 +36,26 @@ const subLeft = (element) => {
     return newLeft;
 };
 
-const getNumPictures = (pictures) => Math.floor(pictures.childNodes.length / 2);
-
-const getCurrentImgNum = (pictureFrame) => parseInt(pictureFrame.lastChild.textContent);
-
-const getImgNum = (pictureFrame) => pictureFrame.lastChild;
-
-const changeImgNum = (pictureFrame, newNum) => { getImgNum(pictureFrame).textContent = `${newNum}` };
-
-function addImageNum(pictureFrame, pictures) {
-    const numPictures = getNumPictures(pictures);
-    const currentNum = getCurrentImgNum(pictureFrame);
-    const newNum = currentNum + 1;
-    if (newNum > numPictures) {
-        return 1;
-    }
-    return newNum;
-}
-
-function subImageNum(pictureFrame, pictures) {
-    const numPictures = getNumPictures(pictures);
-    const currentNum = getCurrentImgNum(pictureFrame);
-    const newNum = currentNum - 1;
-    if (newNum < 1) {
-        return numPictures;
-    }
-    return newNum;
-}
-
 function getPictures(pictureFrame) {
     return pictureFrame.childNodes[1];
+}
+
+function getPicturesOnly(pictures) {
+    return Array.from(pictures.childNodes)
+        .filter((element) => element.nodeName === "IMG");
+}
+
+function getIndexFromLeft(pictures) {
+    const curLeftVal = getLeft(pictures);
+    const pictureWidth = getWidth(pictures.childNodes[1]);
+    const index = Math.abs(curLeftVal) / pictureWidth;
+    return index;
+}
+
+function updateCircles(pictures, pictureFrame) {
+    const circleNodes = Array.from(pictureFrame.lastChild.childNodes);
+    const activeCircleIndex = getIndexFromLeft(pictures);
+    activateCircle(activeCircleIndex, circleNodes);
 }
 
 function next(pictureFrame) {
@@ -74,9 +64,8 @@ function next(pictureFrame) {
         return;
     }
     const newLeft = `${addLeft(pictures)}px`;
-    const newImgNum = addImageNum(pictureFrame, pictures);
     changeLeft(pictures, newLeft);
-    changeImgNum(pictureFrame, newImgNum);
+    updateCircles(pictures, pictureFrame);
 }
 
 function back(pictureFrame) {
@@ -85,9 +74,8 @@ function back(pictureFrame) {
         return;
     }
     const newLeft = `${subLeft(pictures)}px`;
-    const newImgNum = subImageNum(pictureFrame, pictures);
     changeLeft(pictures, newLeft);
-    changeImgNum(pictureFrame, newImgNum);
+    updateCircles(pictures, pictureFrame);
 }
 
 function createButton(className, callbackfn) {
@@ -97,21 +85,74 @@ function createButton(className, callbackfn) {
     return button;
 }
 
-function createText(className, type, content) {
-    const text = document.createElement(type);
-    text.className = `p-frame-asset p-frame-text ${className}`;
-    text.textContent = content;
-    return text;
+function createDiv(className) {
+    const div = document.createElement('div');
+    div.className = `p-frame-asset ${className}`;
+    return div;
+}
+
+function createCircle(callbackfn) {
+    const circle = document.createElement("div");
+    circle.className = `p-frame-circle`;
+    circle.addEventListener('click', callbackfn);
+    return circle;
+}
+
+function calculateLeft(pictures, index) {
+    const pictureWidth = getWidth(pictures.childNodes[1]);
+    const newLeft = -(pictureWidth * index);
+    return `${newLeft}px`;
+}
+
+function defaultCircle(...circleNodes) {
+    circleNodes.forEach((circle) => {
+        circle.classList.remove('active-circle');
+    })
+}
+
+function activateCircle(index, circleNodes) {
+    defaultCircle(...circleNodes);
+    circleNodes[index].classList.add('active-circle');
+}
+
+function createCirclesFrom(pictureFrame) {
+    const pictures = getPictures(pictureFrame);
+    const picturesOnly = getPicturesOnly(pictures);
+    const circleNodes = [];
+    picturesOnly.forEach((imgNode, index) => {
+        const left = calculateLeft(pictures, index)
+        const newCircle = createCircle(() => {
+            changeLeft(pictures, left);
+        });
+        if (index === 0) {
+            newCircle.classList.add('active-circle');
+        }
+        circleNodes.push(newCircle);
+    });
+    circleNodes.forEach((circle, index) => {
+        circle.addEventListener('click', () => {
+            activateCircle(index, circleNodes);
+        });
+    });
+    return circleNodes;
+}
+
+function appendTo(parentNode, ...childNodes) {
+    childNodes.forEach((node) => {
+        parentNode.appendChild(node);
+    });
 }
 
 function constructButtons(pictureFrame) {
     const nextButton = createButton('next-btn', () => next(pictureFrame));
     const backButton = createButton('back-btn', () => back(pictureFrame));
-    const imageNumber = createText('image-number', 'p', '1');
+    const imageCircleGroup = createDiv('p-frame-circle-group');
+    const imageCircles = createCirclesFrom(pictureFrame);
+    appendTo(imageCircleGroup, ...imageCircles);
     window.setInterval(() => next(pictureFrame), 5000);
     pictureFrame.appendChild(nextButton);
     pictureFrame.appendChild(backButton);
-    pictureFrame.appendChild(imageNumber);
+    pictureFrame.appendChild(imageCircleGroup);
 }
 
 function makeImageCarouselAll(frameQuery) {
