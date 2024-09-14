@@ -8,12 +8,13 @@
     --tim-p-frame-fs: calc(var(--tim-img-size) / 20);
     --tim-p-frame-fg: #eee;
     --tim-true-center: calc(var(--tim-img-size) / 2);
-    --tim-text-shadow: 2px 2px 5px #00000075;
+    --tim-circle-shadow: 2px 2px 5px #00000075;
     --tim-p-frame-bdr: 10px;
     --tim-p-frame-btn-bg: #ffffff25;
     --tim-p-frame-btn-bg-hov: #ffffff75;
     --tim-space: 5px;
     --tim-p-frame-bd: 2.5px solid black;
+    --tim-circle-size: calc(var(--tim-btn-size) / 3);
 }
 
 div.picture-frame.image-carousel {
@@ -69,13 +70,29 @@ div.picture-frame.image-carousel > div.pictures {
     left: var(--tim-space);
 }
 
-.p-frame-text {
-    color: var(--tim-p-frame-fg);
-    font-size: var(--tim-p-frame-fs);
-    text-shadow: var(--tim-text-shadow);
+.p-frame-circle-group {
+    bottom: var(--tim-space);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: var(--tim-img-size);
 }
 
-.image-number {
-    left: var(--tim-true-center);
-    bottom: var(--tim-space);
+.p-frame-circle {
+    height: var(--tim-circle-size);
+    width: var(--tim-circle-size);
+    border-radius: var(--tim-circle-size);
+    background-color: transparent;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #ffffff25;
+}
+
+.p-frame-circle.active-circle {
+    background-color: white;
+}
+
+.p-frame-circle:hover {
+    box-shadow: var(--tim-circle-shadow);
 }
